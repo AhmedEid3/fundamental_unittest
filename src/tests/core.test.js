@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import {
   Stack,
   calculateDiscount,
@@ -9,7 +9,7 @@ import {
   isPriceInRange,
   isStrongPassword,
   isValidUsername,
-  validateUserInput,
+  validateUserInput
 } from '../core'
 
 // Writing good assertions
@@ -132,7 +132,7 @@ describe('isValidUsername', () => {
 describe('canDrive', () => {
   const legalDrivingAge = {
     US: 16,
-    UK: 17,
+    UK: 17
   }
 
   it('should return error for invalid country code ', () => {
@@ -164,31 +164,31 @@ describe('isPriceInRange', () => {
     {
       scenario: 'price < min',
       price: -10,
-      result: false,
+      result: false
     },
     {
       scenario: 'price = min',
       price: 1,
-      result: true,
+      result: true
     },
     {
       scenario: 'price between min and max',
       price: 50,
-      result: true,
+      result: true
     },
     { scenario: 'price = max', price: 100, result: true },
     {
       scenario: 'price > max',
       price: 200,
-      result: false,
-    },
+      result: false
+    }
   ])
 
   itEach(
     'should return $result when $scenario',
     ({ price, scenario, result }) => {
       expect(isPriceInRange(price, 0, 100)).toBe(result)
-    },
+    }
   )
 })
 
@@ -291,7 +291,7 @@ describe('createProduct', () => {
 
     expect(createProduct(product)).toMatchObject({ success: false })
     expect(createProduct(product)).toMatchObject({
-      error: { code: 'invalid_name', message: /missing/i },
+      error: { code: 'invalid_name', message: /missing/i }
     })
   })
 
@@ -300,7 +300,7 @@ describe('createProduct', () => {
 
     expect(createProduct(product)).toMatchObject({ success: false })
     expect(createProduct(product)).toMatchObject({
-      error: { code: 'invalid_price', message: /missing/i },
+      error: { code: 'invalid_price', message: /missing/i }
     })
   })
 
@@ -309,7 +309,7 @@ describe('createProduct', () => {
 
     expect(createProduct(product)).toMatchObject({
       success: true,
-      message: /successful/i,
+      message: /successful/i
     })
   })
 })

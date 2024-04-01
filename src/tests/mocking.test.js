@@ -1,5 +1,10 @@
-import { vi, it, expect, describe } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+import { trackPageView } from '../libs/analytics'
 import { getExchangeRate } from '../libs/currency'
+import { sendEmail } from '../libs/email'
+import { charge } from '../libs/payment'
+import security from '../libs/security'
+import { getShippingQuote } from '../libs/shipping'
 import {
   getDiscount,
   getPriceInCurrency,
@@ -8,13 +13,8 @@ import {
   login,
   renderPage,
   signUp,
-  submitOrder,
+  submitOrder
 } from '../mocking'
-import { getShippingQuote } from '../libs/shipping'
-import { trackPageView } from '../libs/analytics'
-import { charge } from '../libs/payment'
-import { sendEmail } from '../libs/email'
-import security from '../libs/security'
 
 vi.mock('../libs/currency.js')
 vi.mock('../libs/shipping.js')
@@ -24,7 +24,7 @@ vi.mock('../libs/email.js', async (importOriginal) => {
   const originalModule = await importOriginal()
   return {
     ...originalModule,
-    sendEmail: vi.fn(),
+    sendEmail: vi.fn()
   }
 })
 
@@ -35,7 +35,7 @@ describe('try mocking function', () => {
     // greeting.mockResolvedValue('Hello')
     greeting.mockImplementation((name) => 'Hello ' + name)
 
-    let result = await greeting('ahmed')
+    await greeting('ahmed')
     // result = await greeting('Eid')
 
     expect(greeting).toHaveBeenCalledWith('ahmed')
@@ -102,7 +102,7 @@ describe('submitOrder', () => {
   it('should charge user', async () => {
     vi.mocked(charge).mockResolvedValue({ status: 'success' })
 
-    const result = await submitOrder(order, creditCard)
+    await submitOrder(order, creditCard)
 
     expect(charge).toHaveBeenCalledWith(creditCard, order.totalAmount)
   })

@@ -2,7 +2,7 @@
 export function getCoupons() {
   return [
     { code: 'SAVE20NOW', discount: 0.2 },
-    { code: 'DISCOUNT50OFF', discount: 0.5 },
+    { code: 'DISCOUNT50OFF', discount: 0.5 }
   ]
 }
 
@@ -28,7 +28,7 @@ export function calculateDiscount(price, discountCode) {
 
 // Exercise: Positive and negative testing
 export function validateUserInput(username, age) {
-  let errors = []
+  const errors = []
 
   if (
     typeof username !== 'string' ||
@@ -64,7 +64,7 @@ export function isValidUsername(username) {
 export function canDrive(age, countryCode) {
   const legalDrivingAge = {
     US: 16,
-    UK: 17,
+    UK: 17
   }
 
   if (!legalDrivingAge[countryCode]) {
@@ -76,14 +76,8 @@ export function canDrive(age, countryCode) {
 
 // Lesson: Testing asynchronous code
 export function fetchData() {
+  // eslint-disable-next-line prefer-promise-reject-errors
   return Promise.reject({ message: 'Operation Failed' })
-
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const data = [1, 2, 3]
-      resolve(data)
-    })
-  })
 }
 
 // Lesson: Setup and teardown
@@ -127,17 +121,19 @@ export class Stack {
 export function createProduct(product) {
   if (!product) throw new Error('You provided empty product')
 
-  if (!product.name)
+  if (!product.name) {
     return {
       success: false,
-      error: { code: 'invalid_name', message: 'Name is missing' },
+      error: { code: 'invalid_name', message: 'Name is missing' }
     }
+  }
 
-  if (product.price <= 0)
+  if (product.price <= 0) {
     return {
       success: false,
-      error: { code: 'invalid_price', message: 'Price is missing' },
+      error: { code: 'invalid_price', message: 'Price is missing' }
     }
+  }
 
   return { success: true, message: 'Product was successfully published' }
 }

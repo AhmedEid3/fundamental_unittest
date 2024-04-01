@@ -188,7 +188,7 @@ describe('isPriceInRange', () => {
     'should return $result when $scenario',
     ({ price, scenario, result }) => {
       expect(isPriceInRange(price, 0, 100)).toBe(result)
-    }
+    },
   )
 })
 
